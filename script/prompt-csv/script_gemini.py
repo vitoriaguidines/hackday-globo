@@ -1,16 +1,19 @@
+import os
 import google.generativeai as genai
 import pandas as pd
-import os
-import dotenv
+from dotenv import load_dotenv
 
-# Carregar variáveis de ambiente do arquivo .env (se houver)
-dotenv.load_dotenv()
+# Caminho para o arquivo .env
+dotenv_path = os.path.join(os.path.dirname(__file__), '../../contexts/.env')
+
+# Carregar variáveis de ambiente do arquivo .env
+load_dotenv(dotenv_path)
 
 # Configuração da API
 KEY_GEMINI = os.getenv("GOOGLE_API_KEY")
 if not KEY_GEMINI:
-    raise ValueError("A chave da API do Google não foi encontrada. Defina-a na variável de ambiente 'GOOGLE_API_KEY'.")
-    
+    raise ValueError("A chave da API do Google não foi encontrada. Verifique o arquivo '.env' na pasta 'contexts'.")
+
 genai.configure(api_key=KEY_GEMINI)
 
 # Modelo de análise de sentimento
@@ -32,8 +35,8 @@ def processar_csv_em_chunks(input_file, output_file, chunksize=1000):
         chunk.to_csv(output_file, mode='a', header=not os.path.exists(output_file), index=False)
 
 # Caminho dos arquivos
-input_file = 'input.csv'
-output_file = 'arquivo_analisado.csv'
+input_file = os.path.join(os.path.dirname(__file__), 'input.csv')
+output_file = os.path.join(os.path.dirname(__file__), 'arquivo_analisado.csv')
 
 # Processar o arquivo CSV
 processar_csv_em_chunks(input_file, output_file)
