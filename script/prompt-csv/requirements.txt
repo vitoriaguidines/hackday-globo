@@ -2,3 +2,4 @@ google-generativeai
 pandas
 python-dotenv
 flask
+flask-cors

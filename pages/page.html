@@ -20,38 +20,18 @@
     </header>
 
     <div class="emoji-container">
-        <button class="emoji-button" onclick="filtrarComentarios('🤬')">🤬</button>
-        <button class="emoji-button" onclick="filtrarComentarios('☹️')">☹️</button>
-        <button class="emoji-button" onclick="filtrarComentarios('😐')">😐</button>
-        <button class="emoji-button" onclick="filtrarComentarios('🙂')">🙂</button>
-        <button class="emoji-button" onclick="filtrarComentarios('😀')">😀</button>
+        <button id="emoji1" class="emoji-button">🤬</button>
+        <button id="emoji2" class="emoji-button">☹️</button>
+        <button id="emoji3" class="emoji-button">😐</button>
+        <button id="emoji4" class="emoji-button">🙂</button>
+        <button id="emoji5" class="emoji-button">😀</button>
     </div>
 
     <div id="resultados" class="comment-section">
         <!-- Os comentários filtrados aparecerão aqui -->
     </div>
 
-    <script>
-        function filtrarComentarios(emoji) {
-            fetch(`/filtrar?emoji=${encodeURIComponent(emoji)}`)
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados');
-                    resultadosDiv.innerHTML = ''; // Limpa os resultados anteriores
-
-                    if (data.comentarios.length > 0) {
-                        data.comentarios.forEach(comentario => {
-                            const p = document.createElement('p');
-                            p.textContent = comentario;
-                            resultadosDiv.appendChild(p);
-                        });
-                    } else {
-                        resultadosDiv.textContent = 'Nenhum comentário encontrado.';
-                    }
-                })
-                .catch(error => console.error('Erro:', error));
-        }
-    </script>
+    <script type="module" src="../utils/filter.js"></script>
 
 </body>
 </html>
