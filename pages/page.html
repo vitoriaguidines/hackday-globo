@@ -20,37 +20,38 @@
     </header>
 
     <div class="emoji-container">
-        <button class="emoji-button">🤬</button>
-        <button class="emoji-button">☹️</button>
-        <button class="emoji-button">😐</button>
-        <button class="emoji-button">🙂</button>
-        <button class="emoji-button">😀</button>
+        <button class="emoji-button" onclick="filtrarComentarios('🤬')">🤬</button>
+        <button class="emoji-button" onclick="filtrarComentarios('☹️')">☹️</button>
+        <button class="emoji-button" onclick="filtrarComentarios('😐')">😐</button>
+        <button class="emoji-button" onclick="filtrarComentarios('🙂')">🙂</button>
+        <button class="emoji-button" onclick="filtrarComentarios('😀')">😀</button>
     </div>
 
-    <div class="comment-section">
-        <div class="comment-box">
-            <div class="comment-title">Comentário Positivo</div>
-            <div class="comment-content"></div>
-        </div>
-        <div class="comment-box">
-            <div class="comment-title">Comentário Neutro</div>
-            <div class="comment-content"></div>
-        </div>
-        <div class="comment-box">
-            <div class="comment-title">Comentário Negativo</div>
-            <div class="comment-content"></div>
-        </div>
+    <div id="resultados" class="comment-section">
+        <!-- Os comentários filtrados aparecerão aqui -->
     </div>
 
     <script>
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                console.log('Copied: ' + text);
-            }, function(err) {
-                console.error('Could not copy text: ', err);
-            });
+        function filtrarComentarios(emoji) {
+            fetch(`/filtrar?emoji=${encodeURIComponent(emoji)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultadosDiv = document.getElementById('resultados');
+                    resultadosDiv.innerHTML = ''; // Limpa os resultados anteriores
+
+                    if (data.comentarios.length > 0) {
+                        data.comentarios.forEach(comentario => {
+                            const p = document.createElement('p');
+                            p.textContent = comentario;
+                            resultadosDiv.appendChild(p);
+                        });
+                    } else {
+                        resultadosDiv.textContent = 'Nenhum comentário encontrado.';
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
         }
     </script>
-    
+
 </body>
 </html>
