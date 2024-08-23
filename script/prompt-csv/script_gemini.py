@@ -1,7 +1,7 @@
 import os
 import google.generativeai as genai
 import pandas as pd
-from dotenv import load_dotenv
+from dtenvo import load_dotenv
 
 # Caminho para o arquivo .env
 dotenv_path = os.path.join(os.path.dirname(__file__), '../../contexts/.env')
@@ -22,7 +22,7 @@ model = genai.GenerativeModel('gemini-pro')
 def analisar_sentimento(texto):
     try:
         # Gerando a análise do sentimento
-        response = model.generate_content(f"Analise o sentimento do seguinte comentário: '{texto}'. Responda com 'negativo', 'neutro' ou 'positivo'.")
+        response = model.generate_content(f"Analise o sentimento do seguinte comentário: '{texto}'. Responda com 'muito negativo', 'negativo', 'neutro', 'positivo' ou 'muito positivo'. Sabendo que muito negativo: insultos, xingamentos, expressões de ódio, críticas severas generalizaçoes negativas.negativo: desaprovação, discordância, críticas construtivas, ressalvas. neutro: opiniões neutras, fatos, informações, perguntas. positivo: elogios, aprovação, concordância, expressões de felicidade, gratidão. muito positivo: entusiasmo, admiraçao, apoio incondicional, superlativos.")
         return response.text.strip().lower()
     except Exception as e:
         print(f"Erro ao analisar o comentário: {e}")
