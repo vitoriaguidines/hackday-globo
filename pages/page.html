@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watcher - Page</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body class="page-body full-screen">
+
+    <button class="back-button-left" onclick="window.location.href='index.html'">
+        <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Seta para a esquerda">
+    </button>
+
+    <header class="header">
+        <div class="logo">
+            <img src="../images/binoculo.png" alt="Binóculos">
+            <span>Watcher</span>
+        </div>
+    </header>
+
+    <div class="emoji-container">
+        <button class="emoji-button">🤬</button>
+        <button class="emoji-button">☹️</button>
+        <button class="emoji-button">😐</button>
+        <button class="emoji-button">🙂</button>
+        <button class="emoji-button">😀</button>
+    </div>
+
+    <div class="comment-section">
+        <div class="comment-box">
+            <div class="comment-title">Comentário Positivo</div>
+            <div class="comment-content"></div>
+        </div>
+        <div class="comment-box">
+            <div class="comment-title">Comentário Neutro</div>
+            <div class="comment-content"></div>
+        </div>
+        <div class="comment-box">
+            <div class="comment-title">Comentário Negativo</div>
+            <div class="comment-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Copied: ' + text);
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+    
+</body>
+</html>
